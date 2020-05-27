@@ -5,9 +5,16 @@ defmodule ClaytonWeb.Router do
     plug :accepts, ["html"]
     plug :fetch_session
     plug :fetch_flash
-    plug :protect_from_forgery
+    # plug :protect_from_forgery
     plug :put_secure_browser_headers
   end
+
+  pipeline :callback do
+    plug Clayton.Plugs.FetchRequestBody
+    plug :accepts, ["xml", "json", "wav","audio/wav"]
+
+  end
+
 
   pipeline :api do
     plug :accepts, ["json"]
@@ -17,7 +24,15 @@ defmodule ClaytonWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+    get "/store", PageController, :success
   end
+
+  scope "/", ClaytonWeb do
+    pipe_through :browser
+    pipe_through :callback
+    put "/store", PageController, :store
+  end
+
 
   # Other scopes may use custom stacks.
   # scope "/api", ClaytonWeb do
