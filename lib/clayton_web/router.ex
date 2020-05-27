@@ -29,7 +29,7 @@ defmodule ClaytonWeb.Router do
 
   scope "/", ClaytonWeb do
     pipe_through :browser
-    pipe_through :callback
+    # pipe_through :callback
     put "/store", PageController, :store
   end
 
