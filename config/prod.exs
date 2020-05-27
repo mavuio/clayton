@@ -52,16 +52,16 @@ config :logger, level: :info
 
 # Finally import the config/prod.secret.exs which loads secrets
 # and configuration from environment variables.
-# import_config "prod.secret.exs"
 
-config :clayton, ClaytonWeb.Endpoint,
-  http: [port: {:system, "PORT"}], # Possibly not needed, but doesn't hurt
-  url: [host: System.get_env("APP_NAME") <> ".gigalixirapp.com", port: 80],
-  secret_key_base: Map.fetch!(System.get_env(), "SECRET_KEY_BASE"),
-  server: true
 
 config :clayton, Clayton.Repo,
   adapter: Ecto.Adapters.Postgres,
-  url: System.get_env("DATABASE_URL"),
-  ssl: true,
-  pool_size: 2 #
+  database: "clayton",
+  username: "mwuits",
+  hostname: "localhost"
+
+config :clayton, ecto_repos: [Clayton.Repo]
+
+import_config "prod.secret.exs"
+
+
