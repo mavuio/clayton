@@ -11,10 +11,8 @@ defmodule ClaytonWeb.Router do
 
   pipeline :callback do
     plug Clayton.Plugs.FetchRequestBody
-    plug :accepts, ["xml", "json", "wav","audio/wav"]
-
+    plug :accepts, ["xml", "json", "wav", "audio/wav"]
   end
-
 
   pipeline :api do
     plug :accepts, ["json"]
@@ -29,10 +27,9 @@ defmodule ClaytonWeb.Router do
 
   scope "/", ClaytonWeb do
     pipe_through :browser
-    # pipe_through :callback
+    pipe_through :callback
     put "/store", PageController, :store
   end
-
 
   # Other scopes may use custom stacks.
   # scope "/api", ClaytonWeb do

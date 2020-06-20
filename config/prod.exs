@@ -53,7 +53,6 @@ config :logger, level: :info
 # Finally import the config/prod.secret.exs which loads secrets
 # and configuration from environment variables.
 
-
 config :clayton, Clayton.Repo,
   adapter: Ecto.Adapters.Postgres,
   database: "clayton",
@@ -62,6 +61,7 @@ config :clayton, Clayton.Repo,
 
 config :clayton, ecto_repos: [Clayton.Repo]
 
+config :clayton,
+  uploads_directory: "/www/clayton/inbox"
+
 import_config "prod.secret.exs"
-
-

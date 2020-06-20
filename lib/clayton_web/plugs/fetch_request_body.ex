@@ -6,9 +6,9 @@ defmodule Clayton.Plugs.FetchRequestBody do
     opts
   end
 
-  def call(conn, opts) do
-    {:ok, body, conn} = Plug.Conn.read_body(conn, opts)
-    body |> IO.inspect(label: "Clayton READBODY")
+  def call(conn, _opts) do
+    {:ok, body, conn} = Plug.Conn.read_body(conn, length: 100_000_000)
+    # body |> IO.inspect(label: "Clayton READBODY")
     conn |> Plug.Conn.put_private(:raw_body, body)
   end
 

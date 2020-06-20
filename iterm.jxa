@@ -1,0 +1,33 @@
+#!/usr/bin/env osascript -l JavaScript
+
+// open with atom
+
+lib = Library("iterm2lib")
+tab = lib.createNewTab()
+
+var r = [],
+    l = [];
+
+l[0] = tab.sessions[0];
+r[0] = lib.addCol(l[0]);
+
+r[2] = lib.addRow(r[0]);
+r[1] = lib.addRow(r[0]);
+
+l[2] = lib.addRow(l[0]);
+l[1] = lib.addRow(l[0]);
+
+
+[
+    // ['cd /www/clayton', 'yarn --cwd engine/datagrid serve'],
+    ['cd /www/clayton', ''],
+    ['cd /www/clayton', 'psql clayton'],
+    ['cd /www/clayton', 'ssh  -t root@aequiti.werkzeugh.at', 'cd /www/clayton', 'psql clayton']
+].reduce(lib.sendCmds, l);
+
+[
+    ['cd /www/clayton', 'HOT=1 iex -S mix phx.server'],
+    ['cd /www/clayton', 'git status', 'sleep 3;echo http://localhost:4000/prod'],
+    ['cd /www/clayton', 'ssh  -t root@aequiti.werkzeugh.at', 'cd /www/clayton', 'tmux a -t clayton']
+
+].reduce(lib.sendCmds, r);
